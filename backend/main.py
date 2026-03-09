@@ -7,9 +7,9 @@ import io
 import matplotlib.pyplot as plt
 import shap
 
-from schemas import CustomerData
-from feature_engineering import engineer_features
-from utils import predict_single, predict_batch, shap_explain
+from backend.schemas import CustomerData
+from backend.feature_engineering import engineer_features
+from backend.utils import predict_single, predict_batch, shap_explain
 
 from fastapi.middleware.cors import CORSMiddleware
 
