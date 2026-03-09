@@ -123,11 +123,18 @@ elif page == "Batch Upload":
 # =========================================================
 else:
 
+    import os
+
+    BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+    roc_path = os.path.join(BASE_DIR, "models", "ROC_curve.png")
+    CM_path  = os.path.join(BASE_DIR, "models", "confusion_matrix.png")
+    FI_path  = os.path.join(BASE_DIR, "models", "feature_importance.png")
     st.header("📈 Model Insights")
 
-    st.image("../models/roc_curve.png", caption="ROC Curve")
-    st.image("../models/confusion_matrix.png", caption="Confusion Matrix")
-    st.image("../models/feature_importance.png", caption="Feature Importance")
+    st.image(roc_path, caption="ROC Curve")
+    st.image(CM_path, caption="Confusion Matrix")
+    st.image(FI_path, caption="Feature Importance")
 
     st.markdown("""
     ### 🔍 Key Churn Drivers
