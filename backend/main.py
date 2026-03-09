@@ -73,7 +73,7 @@ def shap_plot(data: CustomerData):
         shap_values, processed, feature_names = shap_explain(df)
 
         plt.figure()
-        shap.plots.waterfall(shap_values[0,:,0], show=False)
+        shap.plots.waterfall(shap_values[0,:,1], show=False)
 
         buf = io.BytesIO()
         plt.savefig(buf, format="png", bbox_inches="tight")
