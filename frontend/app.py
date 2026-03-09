@@ -3,7 +3,7 @@ import requests
 import pandas as pd
 import base64
 
-API = "http://127.0.0.1:8000"
+API = "https://customer-churn-prediction-ct21.onrender.com"
 
 st.set_page_config(page_title="Churn Intelligence Dashboard", layout="wide")
 
