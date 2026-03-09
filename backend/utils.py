@@ -2,9 +2,14 @@ import joblib
 import shap
 import numpy as np
 import pandas as pd
+import os
 
-model = joblib.load("../models/random_forest_tuned.pkl")
-preprocessor = joblib.load("../models/preprocessor.pkl")
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+model_path = os.path.join(BASE_DIR, "models", "random_forest.pkl")
+prep_path  = os.path.join(BASE_DIR, "models", "preprocessor.pkl")
+model = joblib.load(model_path)
+preprocessor = joblib.load(prep_path)
 explainer = shap.TreeExplainer(model)
 
 # --------------------------

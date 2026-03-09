@@ -11,7 +11,16 @@ from schemas import CustomerData
 from feature_engineering import engineer_features
 from utils import predict_single, predict_batch, shap_explain
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI(title="Customer Churn Prediction API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # --------------------------
 # Health Check
@@ -88,10 +97,18 @@ def shap_plot(data: CustomerData):
 # --------------------------
 # Model Insights (static)
 # --------------------------
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+roc_path = os.path.join(BASE_DIR, "models", "ROC_curve.png")
+CM_path  = os.path.join(BASE_DIR, "models", "confusion_matrix.png")
+FI_path  = os.path.join(BASE_DIR, "models", "feature_importance.png")
+
 @app.get("/insights")
 def insights():
     return {
-        "roc_curve": "../models/ROC_curve.png",
-        "confusion_matrix": "../models/confusion_matrix.png",
-        "feature_importance": "../models/feature_importance.png"
+        "roc_curve": roc_path,
+        "confusion_matrix": CM_path,
+        "feature_importance": FI_path
     }
