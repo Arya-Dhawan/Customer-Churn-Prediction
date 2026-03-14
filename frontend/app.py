@@ -157,7 +157,7 @@ else:
     
     st.set_page_config(layout="wide")
 
-    st.title("📊 Model Insights Dashboard")
+    st.header("📶 Model Insights Dashboard")
     st.markdown("Performance analysis and explainability of the churn prediction model")
 
     st.divider()
@@ -212,29 +212,6 @@ else:
     st.divider()
 
     # ===============================
-    # 4️⃣ CUSTOMER RISK DISTRIBUTION
-    # ===============================
-
-    '''st.subheader("📊 Customer Risk Distribution")
-
-    # Example simulated probabilities (replace with real predictions if available)
-    np.random.seed(42)
-    probs = np.random.beta(2,5,1000)
-
-    df_probs = pd.DataFrame({"Churn Probability": probs})
-
-    fig = px.histogram(
-        df_probs,
-        x="Churn Probability",
-        nbins=30,
-        title="Distribution of Predicted Churn Risk",
-    )
-
-    st.plotly_chart(fig, use_container_width=True)
-
-    st.divider()'''
-
-    # ===============================
     # 5️⃣ BUSINESS INSIGHTS
     # ===============================
 
@@ -273,7 +250,7 @@ else:
     if risk_level == "Low Risk":
 
         st.success("""
-        **Suggested Strategy**
+        **Suggested Strategy:\n**
         • Offer loyalty rewards  
         • Promote bundled services  
         • Upsell long-term contracts
@@ -282,7 +259,7 @@ else:
     elif risk_level == "Medium Risk":
 
         st.warning("""
-        **Suggested Strategy**
+        **Suggested Strategy:\n**
         • Offer contract upgrade discounts  
         • Provide service bundles  
         • Improve customer support engagement
@@ -291,24 +268,9 @@ else:
     else:
 
         st.error("""
-        **Suggested Strategy**
+        **Suggested Strategy:\n**
         • Offer targeted retention discounts  
         • Provide priority technical support  
         • Assign customer success manager
         """)
         
-        
-        #remove this part
-        '''st.header("📈 Model Insights")
-
-        st.image(roc_path, caption="ROC Curve")
-        st.image(CM_path, caption="Confusion Matrix")
-        st.image(FI_path, caption="Feature Importance")
-
-        st.markdown("""
-        ### 🔍 Key Churn Drivers
-        - Month-to-month contracts increase churn risk  
-        - Fiber optic users show higher churn  
-        - Lower tenure customers churn more  
-        - Higher monthly charges increase churn  
-        """)'''
