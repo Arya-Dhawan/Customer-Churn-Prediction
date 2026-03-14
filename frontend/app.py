@@ -78,8 +78,23 @@ if page == "Customer Prediction":
         prob = res["churn_probability"]
         risk = res["risk_level"]
 
-        st.metric("Churn Probability", f"{prob:.2%}")
-        st.success(f"Risk Level: {risk}")
+        #st.metric("Churn Probability", f"{prob:.2%}")
+
+        st.subheader("Churn Probability")
+
+        st.progress(prob)
+
+        st.write(f"### {prob*100:.2f}%")
+
+        if risk=="Low":
+            st.success("Low Risk Customer")
+
+        elif risk=="Medium":
+            st.warning("Medium Risk Customer")
+
+        else:
+            st.error("High Risk Customer")
+        #st.success(f"Risk Level: {risk}")
 
         st.subheader("🧠 SHAP Explanation")
 
@@ -98,6 +113,14 @@ if page == "Customer Prediction":
         else:
             img = base64.b64decode(data["image"])
             st.image(img)
+            st.markdown(
+            """
+            The SHAP waterfall plot shows how each feature contributes to the predicted churn probability.
+
+            🔴 Red features increase churn risk  
+            🔵 Blue features reduce churn risk
+            """
+            )
 
 # =========================================================
 # PAGE 2 — BATCH UPLOAD
@@ -130,16 +153,162 @@ else:
     roc_path = os.path.join(BASE_DIR, "models", "ROC_curve.png")
     CM_path  = os.path.join(BASE_DIR, "models", "confusion_matrix.png")
     FI_path  = os.path.join(BASE_DIR, "models", "feature_importance.png")
-    st.header("📈 Model Insights")
+    SHAP_path = os.path.join(BASE_DIR, "models", "shap_summary.png")
+    
+    st.set_page_config(layout="wide")
 
-    st.image(roc_path, caption="ROC Curve")
-    st.image(CM_path, caption="Confusion Matrix")
-    st.image(FI_path, caption="Feature Importance")
+    st.title("📊 Model Insights Dashboard")
+    st.markdown("Performance analysis and explainability of the churn prediction model")
 
-    st.markdown("""
-    ### 🔍 Key Churn Drivers
-    - Month-to-month contracts increase churn risk  
-    - Fiber optic users show higher churn  
-    - Lower tenure customers churn more  
-    - Higher monthly charges increase churn  
-    """)
+    st.divider()
+
+    # ===============================
+    # 1️⃣ MODEL PERFORMANCE METRICS
+    # ===============================
+
+    col1, col2, col3, col4 = st.columns(4)
+
+    col1.metric("ROC AUC", "0.843")
+    col2.metric("Accuracy", "76.4%")
+    col3.metric("Recall", "74.9%")
+    col4.metric("F1 Score", "0.63")
+
+    st.divider()
+
+    # ===============================
+    # 2️⃣ MODEL PERFORMANCE VISUALS
+    # ===============================
+
+    st.subheader("📈 Model Performance")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("#### ROC Curve")
+        st.image(roc_path, use_container_width=True)
+
+    with col2:
+        st.markdown("#### Confusion Matrix")
+        st.image(CM_path, use_container_width=True)
+
+    st.divider()
+
+    # ===============================
+    # 3️⃣ FEATURE IMPORTANCE
+    # ===============================
+
+    st.subheader("🔍 Feature Intelligence")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("#### Feature Importance")
+        st.image(FI_path, use_container_width=True)
+
+    with col2:
+        st.markdown("#### SHAP Summary Plot")
+        st.image(SHAP_path, use_container_width=True)
+
+    st.divider()
+
+    # ===============================
+    # 4️⃣ CUSTOMER RISK DISTRIBUTION
+    # ===============================
+
+    '''st.subheader("📊 Customer Risk Distribution")
+
+    # Example simulated probabilities (replace with real predictions if available)
+    np.random.seed(42)
+    probs = np.random.beta(2,5,1000)
+
+    df_probs = pd.DataFrame({"Churn Probability": probs})
+
+    fig = px.histogram(
+        df_probs,
+        x="Churn Probability",
+        nbins=30,
+        title="Distribution of Predicted Churn Risk",
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
+
+    st.divider()'''
+
+    # ===============================
+    # 5️⃣ BUSINESS INSIGHTS
+    # ===============================
+
+    st.subheader("💡 Business Insights")
+
+    st.info(
+    """
+    ### 🔺 Key Drivers of Churn
+    • Month-to-month contracts  
+    • High monthly charges  
+    • Fiber optic internet users  
+
+    ### 🔻 Drivers of Retention
+    • Long-term contracts (1–2 years)  
+    • Customers with tech support  
+    • Long tenure customers  
+
+    ### 📈 Business Impact
+    The model can identify high-risk customers early, allowing telecom companies to deploy retention strategies before churn occurs.
+    """
+    )
+
+    st.divider()
+
+    # ===============================
+    # 6️⃣ RETENTION RECOMMENDATION ENGINE
+    # ===============================
+
+    st.subheader("🎯 Retention Strategy Recommender")
+
+    risk_level = st.selectbox(
+        "Select Customer Risk Level",
+        ["Low Risk", "Medium Risk", "High Risk"]
+    )
+
+    if risk_level == "Low Risk":
+
+        st.success("""
+        **Suggested Strategy**
+        • Offer loyalty rewards  
+        • Promote bundled services  
+        • Upsell long-term contracts
+        """)
+
+    elif risk_level == "Medium Risk":
+
+        st.warning("""
+        **Suggested Strategy**
+        • Offer contract upgrade discounts  
+        • Provide service bundles  
+        • Improve customer support engagement
+        """)
+
+    else:
+
+        st.error("""
+        **Suggested Strategy**
+        • Offer targeted retention discounts  
+        • Provide priority technical support  
+        • Assign customer success manager
+        """)
+        
+        
+        #remove this part
+        '''st.header("📈 Model Insights")
+
+        st.image(roc_path, caption="ROC Curve")
+        st.image(CM_path, caption="Confusion Matrix")
+        st.image(FI_path, caption="Feature Importance")
+
+        st.markdown("""
+        ### 🔍 Key Churn Drivers
+        - Month-to-month contracts increase churn risk  
+        - Fiber optic users show higher churn  
+        - Lower tenure customers churn more  
+        - Higher monthly charges increase churn  
+        """)'''
