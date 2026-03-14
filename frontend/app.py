@@ -158,7 +158,7 @@ else:
     st.set_page_config(layout="wide")
 
     st.header("📶 Model Insights Dashboard")
-    st.markdown("Performance analysis and explainability of the churn prediction model")
+    #st.markdown("Performance analysis and explainability of the churn prediction model")
 
     st.divider()
 
@@ -250,7 +250,7 @@ else:
     if risk_level == "Low Risk":
 
         st.success("""
-        **Suggested Strategy:\n**
+        **Suggested Strategy:** \n
         • Offer loyalty rewards  
         • Promote bundled services  
         • Upsell long-term contracts
@@ -259,7 +259,7 @@ else:
     elif risk_level == "Medium Risk":
 
         st.warning("""
-        **Suggested Strategy:\n**
+        **Suggested Strategy:** \n
         • Offer contract upgrade discounts  
         • Provide service bundles  
         • Improve customer support engagement
@@ -268,7 +268,7 @@ else:
     else:
 
         st.error("""
-        **Suggested Strategy:\n**
+        **Suggested Strategy:** \n
         • Offer targeted retention discounts  
         • Provide priority technical support  
         • Assign customer success manager
