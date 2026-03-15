@@ -94,13 +94,9 @@ if page == "Customer Prediction":
 
         else:
             st.error("High Risk Customer")
-        #st.success(f"Risk Level: {risk}")
 
         st.subheader("🧠 SHAP Explanation")
 
-        #shap_res = requests.post(f"{API}/shap", json=payload).json()
-        #img = base64.b64decode(shap_res["image"])
-        #st.image(img)
         res = requests.post(f"{API}/shap", json=payload)
 
         print(res.status_code)
@@ -158,7 +154,6 @@ else:
     st.set_page_config(layout="wide")
 
     st.header("📶 Model Insights Dashboard")
-    #st.markdown("Performance analysis and explainability of the churn prediction model")
 
     st.divider()
 
@@ -237,7 +232,7 @@ else:
     st.divider()
 
     # ===============================
-    # 6️⃣ RETENTION RECOMMENDATION ENGINE
+    # 6️⃣ RETENTION STRATEGY 
     # ===============================
 
     st.subheader("🎯 Retention Strategy Recommender")
